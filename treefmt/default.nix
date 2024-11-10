@@ -19,6 +19,14 @@ in
     # Nix
     programs.nixfmt.enable = enableFormat;
     programs.statix.enable = enableLint;
+    programs.statix = {
+      disabled-lints = [
+        # `bool_comparison` causes false positives in the code base of
+        # twist.nix. Nix is a dynamically typed language and doesn't support
+        # optional types, so this hint should be disabled.
+        "bool_comparison"
+      ];
+    };
     programs.deadnix.enable = enableLint;
 
     # GitHub Actions
