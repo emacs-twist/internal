@@ -12,11 +12,8 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@V27
-        with:
-          extra_nix_config: |
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v5
+      - uses: nixbuild/nix-quick-install-action@v33
       - name: Run check
         id: check
         run: nix run ${{ inputs.flake }}#${{ inputs.package }} -- --fail-on-change
